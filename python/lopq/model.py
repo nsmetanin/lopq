@@ -260,7 +260,7 @@ def train_coarse(data, V=8, kmeans_coarse_iters=10, n_init=10, random_state=None
     logger.info('Fitting coarse quantizer...')
 
     # Fit coarse model
-    model = KMeans(n_clusters=V, init="k-means++", max_iter=kmeans_coarse_iters, n_init=n_init, n_jobs=1, verbose=False, random_state=random_state)
+    model = KMeans(n_clusters=V, init="k-means++", max_iter=kmeans_coarse_iters, n_init=n_init, n_jobs=-1, verbose=1, random_state=random_state)
     model.fit(data)
 
     logger.info('Done fitting coarse quantizer.')
@@ -276,7 +276,7 @@ def train_subquantizers(data, num_buckets, subquantizer_clusters=256, kmeans_loc
     subquantizers = list()
     for i, d in enumerate(np.split(data, num_buckets, axis=1)):
         model = KMeans(n_clusters=subquantizer_clusters, init="k-means++", max_iter=kmeans_local_iters,
-                       n_init=n_init, n_jobs=1, verbose=False, random_state=random_state)
+                       n_init=n_init, n_jobs=-1, verbose=1, random_state=random_state)
         model.fit(d)
         subquantizers.append(model.cluster_centers_)
         logger.info('Fit subquantizer %d of %d.' % (i + 1, num_buckets))
