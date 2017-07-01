@@ -34,7 +34,7 @@ def multisequence(x, centroids):
     sorted_inds = []
     for cx, split in iterate_splits(x, splits):
 
-        dists = ((cx - centroids[split]) ** 2).sum(axis=1)
+        dists = np.abs(cx - centroids[split]).sum(axis=1)
         inds = np.argsort(dists)
 
         cluster_dists.append(dists)
