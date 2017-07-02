@@ -652,7 +652,7 @@ class LOPQModel(object):
         # for cx, split in iterate_splits(px, self.num_coarse_splits):
         for cx, split in split_iter:
             _, _, _, subC = self.get_split_parameters(split)
-            subquantizer_dists += [np.abs(fx - subC[sub_split]).sum(axis=1) for fx, sub_split in iterate_splits(cx, self.num_fine_splits)]
+            subquantizer_dists += [(1.0 - np.dot(fx, subC[sub_split].T)) for fx, sub_split in iterate_splits(cx, self.num_fine_splits)]
 
         return subquantizer_dists
 

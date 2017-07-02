@@ -42,7 +42,7 @@ def predict_cluster(x, centroids):
     :returns int:
         cluster assignment
     """
-    return np.abs(x - centroids).sum(axis=1).argmin(axis=0)
+    return (1.0 - np.dot(x, centroids.T)).argmin(axis=0)
 
 
 def load_xvecs(filename, base_type='f', max_num=None):
